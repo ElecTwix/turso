@@ -2402,9 +2402,11 @@ impl<Clock: LogicalClock> MvStore<Clock> {
                 for index_row_version in index_row_versions.iter_mut() {
                     if let Some(TxTimestampOrID::TxID(id)) = index_row_version.begin {
                         turso_assert_eq!(id, tx_id);
+                        index_row_version.begin = Some(TxTimestampOrID::Timestamp(end_ts));
                     }
                     if let Some(TxTimestampOrID::TxID(id)) = index_row_version.end {
                         turso_assert_eq!(id, tx_id);
+                        index_row_version.end = Some(TxTimestampOrID::Timestamp(end_ts));
                     }
                 }
             }
