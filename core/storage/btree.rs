@@ -6718,6 +6718,7 @@ pub fn btree_init_page(page: &PageRef, page_type: PageType, offset: usize, usabl
         usable_space
     );
     #[cfg(debug_assertions)]
+    //TODO restore format args (as the "details" last arg)
     turso_assert_eq!(
         offset,
         contents.offset(),

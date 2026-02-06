@@ -1638,12 +1638,7 @@ impl DatabaseCatalog {
     fn remove(&mut self, s: &str) -> Option<usize> {
         if let Some(index) = self.name_to_index.remove(s) {
             // Should be impossible to remove main or temp.
-            turso_assert_greater_than_or_equal!(
-                index,
-                2,
-                "lib: cannot remove main or temp database from catalog",
-                { "index": index, "name": s }
-            );
+            turso_assert_greater_than_or_equal!(index, 2);
             self.deallocate_index(index);
             self.index_to_data.remove(&index);
             Some(index)

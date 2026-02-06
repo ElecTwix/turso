@@ -1660,7 +1660,7 @@ pub fn begin_read_wal_frame<F: File + ?Sized>(
                     };
                     turso_assert_greater_than!(
                         bytes_read, 0,
-                        "ondisk: expected to read data for encrypted page",
+                        "expected to read data for encrypted page",
                         { "page_idx": page_idx }
                     );
                     match encryption_ctx.decrypt_page(encrypted_buf.as_slice(), page_idx) {
@@ -1854,11 +1854,7 @@ pub fn checksum_wal(
     input: (u32, u32),
     native_endian: bool, // Sqlite interprets big endian as "native"
 ) -> (u32, u32) {
-    turso_assert_eq!(
-        buf.len() % 8,
-        0,
-        "checksum_wal: buffer must be a multiple of 8"
-    );
+    turso_assert_eq!(buf.len() % 8,0,"buffer must be a multiple of 8");
     let mut s0: u32 = input.0;
     let mut s1: u32 = input.1;
     let mut i = 0;

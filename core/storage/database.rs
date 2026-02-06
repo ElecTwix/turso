@@ -145,7 +145,10 @@ impl DatabaseStorage for DatabaseFile {
                                 tracing::error!(
                                     "Failed to decrypt page data for page_id={page_idx}: {e}"
                                 );
-                                turso_assert!(!original_c.failed());
+                                turso_assert!(
+                                    !original_c.failed(),
+                                    "Original completion already has an error"
+                                );
                                 original_c.error(CompletionError::DecryptionError { page_idx });
                                 Some(CompletionError::DecryptionError { page_idx })
                             }
@@ -178,7 +181,10 @@ impl DatabaseStorage for DatabaseFile {
                                 tracing::error!(
                                     "Failed to verify checksum for page_id={page_idx}: {e}"
                                 );
-                                turso_assert!(!original_c.failed());
+                                turso_assert!(
+                                    !original_c.failed(),
+                                    "Original completion already has an error"
+                                );
                                 original_c.error(e);
                                 Some(e)
                             }

@@ -1272,7 +1272,7 @@ impl Program {
                             // Materialized views should always have storage (root_page != 0)
                             turso_assert_ne!(
                                 root_page, 0,
-                                "vdbe: materialized view should have a root page",
+                                "Materialized view should have a root page",
                                 { "view_name": view_name }
                             );
 

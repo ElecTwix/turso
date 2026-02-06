@@ -28,6 +28,7 @@ use crate::{
     LimboError, Result, TransactionState,
 };
 use crate::{io_yield_one, Buffer, CompletionError, IOContext, OpenFlags, SyncMode, IO};
+#[allow(unused_imports)]
 use crate::{
     turso_assert, turso_assert_eq, turso_assert_greater_than, turso_assert_greater_than_or_equal,
     turso_assert_less_than, turso_assert_ne, turso_debug_assert, turso_soft_unreachable,
@@ -372,6 +373,7 @@ impl PageInner {
         let buf = self.as_ptr();
 
         let ncells = self.cell_count();
+        //TODO restore message and details
         turso_assert_less_than!(idx, ncells);
         let cell_pointer_array_start = self.header_size();
         let cell_pointer = cell_pointer_array_start + (idx * CELL_PTR_SIZE_BYTES);
@@ -2170,10 +2172,7 @@ impl Pager {
 
     /// Set the initial page size for the database. Should only be called before the database is initialized
     pub fn set_initial_page_size(&self, size: PageSize) -> Result<()> {
-        turso_assert!(
-            !self.db_initialized(),
-            "db must not be initialized when setting initial page size"
-        );
+        turso_assert!(!self.db_initialized());
         let IOResult::Done(_) = self.with_header_mut(|header| {
             header.page_size = size;
         })?
@@ -2430,11 +2429,7 @@ impl Pager {
         frame_watermark: Option<u64>,
         allow_empty_read: bool,
     ) -> Result<(PageRef, Completion)> {
-        turso_assert_greater_than_or_equal!(
-            page_idx,
-            0,
-            "read_page_no_cache page_idx must be non-negative"
-        );
+        turso_assert_greater_than_or_equal!(page_idx,0);
         tracing::debug!("read_page_no_cache(page_idx = {})", page_idx);
         let page = Arc::new(Page::new(page_idx));
         let io_ctx = self.io_ctx.read();
