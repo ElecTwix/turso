@@ -1144,7 +1144,7 @@ pub fn compute_best_join_order<'a>(
                             .as_ref()
                             .is_some_and(|j| j.outer),
                     });
-                    turso_assert_eq!(join_order.len(),subset_size);
+                    turso_assert_eq!(join_order.len(), subset_size);
 
                     // Calculate the best way to join LHS with RHS.
                     let rel = join_lhs_and_rhs(

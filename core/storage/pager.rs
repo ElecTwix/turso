@@ -2429,7 +2429,7 @@ impl Pager {
         frame_watermark: Option<u64>,
         allow_empty_read: bool,
     ) -> Result<(PageRef, Completion)> {
-        turso_assert_greater_than_or_equal!(page_idx,0);
+        turso_assert_greater_than_or_equal!(page_idx, 0);
         tracing::debug!("read_page_no_cache(page_idx = {})", page_idx);
         let page = Arc::new(Page::new(page_idx));
         let io_ctx = self.io_ctx.read();
