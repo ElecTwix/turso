@@ -83,13 +83,13 @@ func NewConnection(conn TursoConnection, extraIo func() error) *tursoDbConnectio
 
 // Optional helper to run global setup (logger and log level).
 func Setup(config TursoConfig) error {
-	InitLibrary(turso_libs.LoadTursoLibraryConfig{})
+	InitLibrary(turso_libs.LoadTursoLibraryConfig{LoadStrategy: turso_libs.SystemLibraryLoadStrategy})
 	return turso_setup(config)
 }
 
 // Implement sql.Driver methods
 func (d *tursoDbDriver) Open(dsn string) (driver.Conn, error) {
-	InitLibrary(turso_libs.LoadTursoLibraryConfig{})
+	InitLibrary(turso_libs.LoadTursoLibraryConfig{LoadStrategy: turso_libs.SystemLibraryLoadStrategy})
 	config, err := parseDSN(dsn)
 	if err != nil {
 		return nil, err
