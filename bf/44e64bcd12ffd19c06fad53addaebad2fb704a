@@ -1,0 +1,19 @@
+sync/sdk-kit/Cargo.toml
+  s_12b93db93607aa::t_18d504c897b294 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "bf44e64bcd12ffd19c06fad53addaebad2fb704a",
+  "prompts": {},
+  "sessions": {
+    "s_12b93db93607aa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "894373bc-4785-43bc-be89-cf88e6d29d82",
+        "model": "claude-fable-5"
+      },
+      "human_author": "ElecTwix <root@electwix.dev>"
+    }
+  }
+}
